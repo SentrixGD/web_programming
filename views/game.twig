@@ -1,0 +1,38 @@
+{% extends "__layout.twig" %}
+
+{% block content %}
+<div class="text-center display-6 fw-bold mb-3">
+    {{ title }}
+</div>
+<ul class="nav nav-pills justify-content-center gap-2">
+    {% for link in links %}
+    <li class="nav-item">
+        <a
+            class="nav-link {{ link.active ? 'active' }}"
+            {{ link.active ? 'aria-current="page"' }}
+            href="{{ link.url }}"
+        >
+            {{ link.title }}
+        </a>
+    </li>
+    {% endfor %}
+    <li class="nav-item">
+        <a class="nav-link text-bg-warning" href="/games/{{ game.id }}/edit">Edit</a>
+    </li>
+    <li class="nav-item">
+        <form method="post" action="/games/delete/{{ game.id }}"
+            onsubmit="return confirm('Delete this game?')"
+        >
+            <button type="submit" class="nav-link text-bg-danger">Delete</button>
+        </form>
+    </li>
+</ul>
+
+{% block body %}
+<div class="container py-4">
+    <p class="lead text-center text-body-secondary mb-0">
+        Choose the information you want to know.
+    </p>
+</div>
+{% endblock %}
+{% endblock %}

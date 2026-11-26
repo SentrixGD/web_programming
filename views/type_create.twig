@@ -1,0 +1,29 @@
+{% extends "__layout.twig" %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-6 fw-bold mb-0">Add type</h1>
+        <a class="btn btn-outline-secondary" href="/">Back to games</a>
+    </div>
+
+    {% if message %}
+    <div class="alert alert-success">{{ message }}</div>
+    {% endif %}
+
+    {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" action="/types/create" class="row g-3">
+        <div class="col-12">
+            <label for="name" class="form-label">Name</label>
+            <input class="form-control" type="text" id="name" name="name"
+                value="{{ form.name }}" required>
+        </div>
+        <div class="col-12 text-end">
+            <button class="btn btn-primary" type="submit">Add type</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "__layout.twig" %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-6 fw-bold mb-0">Add game</h1>
+        <a class="btn btn-outline-secondary" href="/">Back to games</a>
+    </div>
+
+    {% if message %}
+    <div class="alert alert-success">
+        {{ message }}
+        {% if created_game_id %}
+        <a class="alert-link" href="/games/{{ created_game_id }}">Open the new game</a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" action="/games/create" enctype="multipart/form-data" class="row g-3">
+        <div class="col-12 col-md-4">
+            <label for="title" class="form-label">Title</label>
+            <input class="form-control" type="text" id="title" name="title"
+                value="{{ form.title }}" required>
+        </div>
+        <div class="col-12 col-md-4">
+            <label for="description" class="form-label">Short description</label>
+            <input class="form-control" type="text" id="description" name="description"
+                value="{{ form.description }}" required>
+        </div>
+        <div class="col-12 col-md-4">
+            <label for="type_id" class="form-label">Type</label>
+            <select class="form-select" id="type_id" name="type_id" required>
+                <option value="">Choose a type</option>
+                {% for type in types %}
+                <option value="{{ type.id }}" {{ form.type_id == type.id ? 'selected' }}>
+                    {{ type.name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-12">
+            <label for="info" class="form-label">Full description</label>
+            <textarea class="form-control" id="info" name="info" rows="5">{{ form.info }}</textarea>
+        </div>
+        <div class="col-12">
+            <label for="image" class="form-label">Image</label>
+            <input class="form-control" type="file" id="image" name="image"
+                accept="image/jpeg,image/png,image/gif,image/webp" required>
+        </div>
+        <div class="col-12 text-end">
+            <button class="btn btn-primary" type="submit">Add game</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
